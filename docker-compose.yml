@@ -1,18 +1,15 @@
 version: '3.4'
 
 services:
-  postgresql:
-    image: 'bitnami/postgresql:latest'
-    ports:
-      - '5432:5432'
+  db:
+    image: "mcr.microsoft.com/mssql/server"
     environment:
-      - POSTGRESQL_USERNAME=demo
-      - POSTGRESQL_PASSWORD=111111
-      - POSTGRESQL_DATABASE=demo
-    volumes:
-      - pgdata:/bitnami
+        SA_PASSWORD: "Your_password123"
+        ACCEPT_EULA: "Y"
     networks:
-      - svcnw
+        - svcnw
+    volumes:
+        - pgdata:/bitnami
 
   hang.ui:
     image: hangui
@@ -25,7 +22,7 @@ services:
     networks:
       - svcnw
     depends_on:
-      - postgresql
+      - db
 
   hang.server1:
     image: hangserver1
@@ -36,7 +33,7 @@ services:
     networks:
       - svcnw
     depends_on:
-      - postgresql
+      - db
       - hang.ui
 
   hang.server2:
@@ -45,7 +42,7 @@ services:
     networks:
       - svcnw
     depends_on:
-      - postgresql
+      - db
       - hang.ui
       - hang.server1
       

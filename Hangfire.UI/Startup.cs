@@ -32,7 +32,7 @@ namespace Hangfire.UI
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UsePostgreSqlStorage(Configuration.GetConnectionString("HangfireConnection")));
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection")));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
